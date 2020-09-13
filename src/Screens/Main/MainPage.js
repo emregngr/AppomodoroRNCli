@@ -3,29 +3,55 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Vibration, Dimensions,
 
 import { connect } from 'react-redux';
 
-const{width,height}=Dimensions.get('window');
+import { getDailyPomodoro, getDailyPomodoroForOnce, addDailyPomodoro } from '../../Actions'
+
+
+const { width, height } = Dimensions.get('window');
 
 const MainPage = (props) => {
 
   const [startStop, setStartStop] = useState(false);
 
+<<<<<<< HEAD
   const [minutes, setMinutes] = useState('0');
   const [seconds, setSeconds] = useState('2');
 
   const [goal, setGoal] = useState(12);
   const [dailyWork, setDailyWork] = useState(0);
+=======
+  // const [minutes, setMinutes] = useState(props.user.worktime);
+  // const [seconds, setSeconds] = useState(0);
 
-  const[isRest,setIsRest]=useState('Neutral');
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(2);
+
+  const [goal, setGoal] = useState(props.user.dailygoal);
+  const [dailyWork, setDailyWork] = useState();
+>>>>>>> 156f584ea6b30bc74e15047194560554adbda19c
+
+  const [isRest, setIsRest] = useState('Neutral');
 
 
   useEffect(() => {
+    let params = {
+      userid: props.user.uid,
+      date: new Date().toLocaleDateString()
+    }
+    props.getDailyPomodoro(params);
+    setDailyWork(props.dailyPomodoro ? props.dailyPomodoro.dailywork : 0)
+  }, []);
+
+  useEffect(() => {
+
+    // props.dailyPomodoro[0].dailyWork
     let interval = null
     if (startStop) {
-      if(dailyWork==goal)
-      {
+      if (dailyWork == goal) {
         setStartStop(!startStop)
-        setMinutes(25)
-        setSeconds(0)
+        // setMinutes(props.user.worktime)
+        // setSeconds(0)
+        setMinutes(0)
+        setSeconds(2)
         Alert.alert('Bugünlük hedefinizi tamamladınız!!!')
       }
       interval = setInterval(() => {
@@ -34,40 +60,62 @@ const MainPage = (props) => {
           setMinutes(minutes => minutes - 1)
           setSeconds(59)
         }
-        if (seconds == 0 && minutes == 0&&(isRest=='Neutral' ||isRest=='Work')) {
+        if (seconds == 0 && minutes == 0 && (isRest == 'Neutral' || isRest == 'Work')) {
           // Vibration.vibrate();
           setIsRest('Rest');
           changeColor();
+          // setMinutes(props.user.resttime)
+          // setSeconds(0)
+
           setMinutes(0)
           setSeconds(2)
         }
-        else if(seconds == 0 && minutes == 0 &&isRest=='Rest'){
+        else if (seconds == 0 && minutes == 0 && isRest == 'Rest') {
           // Vibration.vibrate();
           setIsRest('Work');
           changeColor();
+          // setMinutes(props.user.worktime)
+          // setSeconds(0)
+
           setMinutes(0)
           setSeconds(2)
 
-          setDailyWork(dailyWork=>dailyWork+1)
+          setDailyWork(dailyWork => dailyWork + 1)
+          const daily = dailyWork + 1;
+
+          let params = {
+            daily: dailyWork,
+            userid: props.user.uid,
+            date: new Date().toLocaleDateString()
+          }
+          props.addDailyPomodoro(params)
         }
       }, 1000);
     }
     return () => clearInterval(interval);
   }, [seconds, startStop, minutes]);
 
+<<<<<<< HEAD
   const changeColor=()=>{
     if(isRest=='Rest'){
       return{
         backgroundColor:'green',
+=======
+  const changeColor = () => {
+    if (isRest == 'Rest') {
+      return {
+        backgroundColor: '#4495cb',
+>>>>>>> 156f584ea6b30bc74e15047194560554adbda19c
       }
     }
-    else if(isRest=='Work'||isRest=='Neutral'){
-      return{
-        backgroundColor:'red',
+    else if (isRest == 'Work' || isRest == 'Neutral') {
+      return {
+        backgroundColor: '#FE7C7C',
       }
     }
-  
   }
+
+
   // useEffect(() => {
   //   let interval = null
   //   if (startStop) {
@@ -107,7 +155,7 @@ const MainPage = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.timerView,changeColor()]}>
+      <View style={[styles.timerView, changeColor()]}>
         <Text style={styles.timerText}>{minutes} : {seconds} </Text>
       </View>
       <View style={styles.buttonView}>
@@ -140,49 +188,45 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal:width*0.1,
-    borderWidth:3,
-    borderColor:'black',
-    borderRadius:50,
-    width:width*0.25,
-    height:width*0.25,
-    
+    marginHorizontal: width * 0.1,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 50,
+    width: width * 0.25,
+    height: width * 0.25,
+
   },
   playImage: {
-    height: width*0.1,
-    width: width*0.1
+    height: width * 0.1,
+    width: width * 0.1
   },
   timerView: {
-    backgroundColor:'red',
-    flex:2.5,
-    alignItems:'center',
+    backgroundColor: 'red',
+    flex: 2.5,
+    alignItems: 'center',
     justifyContent: 'center',
-    width:width
+    width: width
   },
   timerText: {
     fontWeight: 'bold',
     fontSize: 60,
     // marginVertical: height*0.01
   },
-  buttonView:{
-    flexDirection:'row',
-    flex:2.5,
-    alignItems:'center',
-    justifyContent:'center'
+  buttonView: {
+    flexDirection: 'row',
+    flex: 2.5,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  goalView:{
-    flex:1
+  goalView: {
+    flex: 1
   }
 });
 
-const mapStateToProps = ({ }) => {
-  // const { loadingCharacter, characters } = charactersResponse;
-  // return { loadingCharacter, characters };
-  return {};
+const mapStateToProps = ({ mainPageResponse, authResponse }) => {
+  const { loadingMainPage, dailyPomodoro } = mainPageResponse;
+  return { loadingMainPage, dailyPomodoro, user: authResponse.user };
 };
 
-export default connect(mapStateToProps, {})(MainPage);
-
-// export default MainPage;
-
+export default connect(mapStateToProps, { getDailyPomodoro, getDailyPomodoroForOnce, addDailyPomodoro })(MainPage);
 
