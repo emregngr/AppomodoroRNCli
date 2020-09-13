@@ -9,10 +9,10 @@ const MainPage = (props) => {
 
   const [startStop, setStartStop] = useState(false);
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(2);
+  const [minutes, setMinutes] = useState('0');
+  const [seconds, setSeconds] = useState('2');
 
-  const [goal, setGoal] = useState(2);
+  const [goal, setGoal] = useState(12);
   const [dailyWork, setDailyWork] = useState(0);
 
   const[isRest,setIsRest]=useState('Neutral');
@@ -58,7 +58,7 @@ const MainPage = (props) => {
   const changeColor=()=>{
     if(isRest=='Rest'){
       return{
-        backgroundColor:'blue',
+        backgroundColor:'green',
       }
     }
     else if(isRest=='Work'||isRest=='Neutral'){
