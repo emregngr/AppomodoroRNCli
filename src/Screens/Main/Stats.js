@@ -1,48 +1,10 @@
-<<<<<<< HEAD
-import React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
-import { BarChart, LineChart, Grid } from 'react-native-svg-charts'
-
-
-const Stats = (props) => {
-    
-        const fill = 'rgb(255, 0, 0)'
-        const data7 = [21, 12, 13, 24, 35, 14, 26]
-        const data14 = [...data7, 15, 21, 34, 12, 17, 23, 29]
-        const data28 = [...data14, 12, 14, 25, 34, 27, 19, 24, 27, 11, 10, 16, 27, 17 ]
-
-        return (
-            <SafeAreaView>
-            <BarChart style={{ height: 250 }} data={data7} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
-                <Grid />
-            </BarChart>
-
-            <BarChart style={{ height: 250 }} data={data14} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
-                <Grid />
-            </BarChart>
-
-            <BarChart style={{ height: 250 }} data={data28} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
-                <Grid />
-            </BarChart>
-            </SafeAreaView>
-        )
-    }
-
-    export default Stats;
-=======
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Dimensions, SafeAreaView, FlatList } from 'react-native';
-
-import {
-    BarChart
-} from "react-native-chart-kit";
+import { BarChart } from "react-native-chart-kit";
 import { ScrollView } from 'react-native-gesture-handler';
-
 import Carousel from 'react-native-snap-carousel';
 
 const { width, height } = Dimensions.get('window');
-
-
 
 const data = {
     labels: ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"],
@@ -53,12 +15,9 @@ const data = {
     ]
 };
 
-
-
-
-
 const _renderItem = () => {
     return (
+        <SafeAreaView>
         <View style={styles.carouselItemView}>
             <BarChart
                 data={data}
@@ -87,6 +46,7 @@ const _renderItem = () => {
                 verticalLabelRotation={15}
             />
         </View>
+        </SafeAreaView>
     );
 }
 const carouselItems = [
@@ -97,8 +57,6 @@ const carouselItems = [
         id: 2,
     },
 ]
-
-
 
 const renderListItem = ({ item }) => (
     <View style={styles.item}>
@@ -144,7 +102,7 @@ const Stats = (props) => {
                 />
             </View>
             <View style={{ flex: 3, width: width }}>
-                <Text style={styles.achievementsText}>Başarımlar</Text>
+                <Text style={styles.achievementsText}>Başarılar</Text>
                 <ScrollView>
                     <SafeAreaView style={styles.container}>
                         <FlatList
@@ -167,9 +125,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
-
-
     container: {
         flex: 1,
     },
@@ -195,4 +150,3 @@ const styles = StyleSheet.create({
 });
 
 export default Stats;
->>>>>>> 156f584ea6b30bc74e15047194560554adbda19c

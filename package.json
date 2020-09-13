@@ -29,13 +29,8 @@
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
-<<<<<<< HEAD
-    "react-native-svg": "^12.1.0",
-    "react-native-svg-charts": "^5.4.0",
-=======
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.0",
->>>>>>> 156f584ea6b30bc74e15047194560554adbda19c
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

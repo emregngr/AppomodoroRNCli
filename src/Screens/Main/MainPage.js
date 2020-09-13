@@ -11,14 +11,7 @@ const { width, height } = Dimensions.get('window');
 const MainPage = (props) => {
 
   const [startStop, setStartStop] = useState(false);
-
-<<<<<<< HEAD
-  const [minutes, setMinutes] = useState('0');
-  const [seconds, setSeconds] = useState('2');
-
-  const [goal, setGoal] = useState(12);
-  const [dailyWork, setDailyWork] = useState(0);
-=======
+  
   // const [minutes, setMinutes] = useState(props.user.worktime);
   // const [seconds, setSeconds] = useState(0);
 
@@ -27,7 +20,6 @@ const MainPage = (props) => {
 
   const [goal, setGoal] = useState(props.user.dailygoal);
   const [dailyWork, setDailyWork] = useState();
->>>>>>> 156f584ea6b30bc74e15047194560554adbda19c
 
   const [isRest, setIsRest] = useState('Neutral');
 
@@ -95,17 +87,11 @@ const MainPage = (props) => {
     return () => clearInterval(interval);
   }, [seconds, startStop, minutes]);
 
-<<<<<<< HEAD
-  const changeColor=()=>{
-    if(isRest=='Rest'){
-      return{
-        backgroundColor:'green',
-=======
   const changeColor = () => {
     if (isRest == 'Rest') {
       return {
         backgroundColor: '#4495cb',
->>>>>>> 156f584ea6b30bc74e15047194560554adbda19c
+
       }
     }
     else if (isRest == 'Work' || isRest == 'Neutral') {
